@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ProjectController;
 use App\Http\Controllers\Admin\TypeController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Admin\TechnologyController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -34,7 +35,11 @@ Route::middleware(['auth', 'verified'])
 
         Route::resource('types', TypeController::class)->parameters([
             'types' => 'type:slug'
-        ])->except(['show']); // except() per non creare le rotte selezioante, oppure only() per creare solo quelle selezionate
+        ])->except(['show']); // except() per non creare le rotte selezionate, oppure only() per creare solo quelle selezionate
+
+        Route::resource('technologies', TechnologyController::class)->parameters([
+            'technologies' => 'technology:slug'
+        ])->except(['show']); // except() per non creare le rotte selezionjate, oppure only() per creare solo quelle selezionate
     });
 
 Route::middleware('auth')->group(function () {

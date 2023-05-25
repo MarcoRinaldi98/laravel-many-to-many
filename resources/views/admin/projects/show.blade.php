@@ -13,6 +13,11 @@
             <p class="text-secondary">{{ $project->slug }}</p>
         </div>
         <h5>Creato in data {{ $project->created_at }}</h5>
+        @forelse ($project->technologies as $technology)
+            <span class="badge rounded-pill text-bg-primary">{{ $technology->name }}</span>
+        @empty
+            <small>Nessuna Tecnologia associata</small>
+        @endforelse
         <p class="mt-3">{{ $project->description }}</p>
     </div>
 

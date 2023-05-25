@@ -49,6 +49,20 @@
                 @enderror
             </div>
 
+            <div class="mb-3">
+                @foreach ($technologies as $technology)
+                    <input type="checkbox" @if (in_array($technology->id, old('technologies', []))) checked @endif
+                        id="technology_{{ $technology->id }}" name="technologies[]" value="{{ $technology->id }}">
+                    <label for="tecnology_{{ $technology->id }}" class="form-label">{{ $technology->name }}</label>
+                    <br />
+                @endforeach
+                @error('technologies')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                @enderror
+            </div>
+
             <button class="btn btn-success" type="submit">Salva</button>
         </form>
     </div>

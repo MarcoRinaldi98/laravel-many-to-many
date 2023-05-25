@@ -20,5 +20,12 @@
                 Types
             </a>
         </li>
+
+        <li class="nav-item">
+            <a href="{{ route('admin.technologies.index') }}"
+                class="nav-link {{ Route::currentRouteName() == 'admin.technologies.index' ? 'active' : '' }}">
+                Technologies
+            </a>
+        </li>
     </ul>
 </div>
