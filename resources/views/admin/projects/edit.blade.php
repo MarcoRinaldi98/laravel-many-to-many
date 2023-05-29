@@ -5,7 +5,7 @@
 @section('content')
     <div class="container">
         <h2 class="text-center">Modifica progetto: </h2>
-        <form action="{{ route('admin.projects.update', $project->slug) }}" method="POST">
+        <form action="{{ route('admin.projects.update', $project->slug) }}" method="POST" enctype="multipart/form-data">
 
             @method('PUT')
             @csrf
@@ -15,6 +15,28 @@
                 <input type="text" id="title" name="title" class="form-control @error('title') is-invalid @enderror"
                     value="{{ old('title', $project->title) }}">
                 @error('title')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                @enderror
+            </div>
+
+            <div class="mb-3">
+                <label for="image" class="form-label">Immagine: </label>
+
+                @if ($project->image)
+                    <div class="my-img-wrapper">
+                        <img class="img-thumbnail my-img-thumb" src="{{ asset('storage/' . $project->image) }}"
+                            alt="{{ $project->title }}">
+                        <a href="{{ route('admin.projects.deleteImage', ['project' => $project->slug]) }}"
+                            class="btn btn-danger my-img-delete">X</a>
+                    </div>
+                @endif
+
+                <input type="file" name="image" id="image"
+                    class="form-control @error('image') is-invalid @enderror">
+
+                @error('image')
                     <div class="invalid-feedback">
                         {{ $message }}
                     </div>

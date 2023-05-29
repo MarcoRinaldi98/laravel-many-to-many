@@ -20,6 +20,7 @@
 <body class="font-sans text-gray-900 antialiased">
 
     @include('partials.header')
+    <h1>Ciao Bolleaner</h1>
 
 
     @yield('content')

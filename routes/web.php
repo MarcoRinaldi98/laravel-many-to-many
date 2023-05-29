@@ -33,6 +33,8 @@ Route::middleware(['auth', 'verified'])
             'projects' => 'project:slug'
         ]);
 
+        Route::get('projects/{project}/deleteImage', [ProjectController::class, 'deleteImage'])->name('projects.deleteImage');
+
         Route::resource('types', TypeController::class)->parameters([
             'types' => 'type:slug'
         ])->except(['show']); // except() per non creare le rotte selezionate, oppure only() per creare solo quelle selezionate

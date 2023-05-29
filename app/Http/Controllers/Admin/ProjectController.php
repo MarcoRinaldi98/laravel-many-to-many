@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateProjectRequest;
 use App\Models\Project;
 use App\Models\Technology;
 use App\Models\Type;
+use Illuminate\Support\Facades\Storage;
 
 class ProjectController extends Controller
 {
@@ -50,6 +51,11 @@ class ProjectController extends Controller
         $checkProject = Project::where('slug', $form_data['slug'])->first();
         if ($checkProject) {
             return back()->withInput()->withErrors(['slug', 'Impossibile creare lo slug per questo progetto, cambiare il titolo!']);
+        }
+
+        if ($request->hasFile('image')) { // o (array_key_exists('image', $request->all()))
+            $path = Storage::put('img', $request->image);
+            $validated_data['image'] = $path;
         }
 
         $newProject = Project::create($form_data);
@@ -103,6 +109,14 @@ class ProjectController extends Controller
             return back()->withInput()->withErrors(['slug', 'Impossibile creare lo slug']);
         }
 
+        if ($request->hasFile('image')) {
+            if ($project->image) {
+                Storage::delete($project->image);
+            }
+            $path = Storage::put('img', $request->image);
+            $validated_data['image'] = $path;
+        }
+
         $project->technologies()->sync($request->technologies);
 
         $project->update($form_data);
@@ -118,8 +132,25 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
+        if ($project->image) {
+            Storage::delete($project->image);
+        }
+
         $project->delete();
 
         return redirect()->route('admin.projects.index');
+    }
+
+    public function deleteImage($project)
+    {
+        $project = Project::where('slug', $project)->firstOrFail();
+        if ($project->image) {
+            Storage::delete($project->image);
+
+            $project->image = null;
+            $project->save();
+        }
+
+        return redirect()->route('admin.projects.edit', $project->slug);
     }
 }

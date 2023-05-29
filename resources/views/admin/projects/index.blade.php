@@ -7,6 +7,7 @@
         <thead>
             <tr>
                 <th scope="col">#</th>
+                <th scope="col">Immagine</th>
                 <th scope="col">Titolo</th>
                 <th scope="col">Slug</th>
                 <th scope="col">Tipologia</th>
@@ -23,6 +24,12 @@
             @forelse ($projects as $project)
                 <tr>
                     <th scope="row">{{ $project->id }}</th>
+                    <td>
+                        @if ($project->image)
+                            <img class="img-thumbnail my-img-index" src="{{ asset('storage/' . $project->image) }}"
+                                alt="{{ $project->title }}" />
+                        @endif
+                    </td>
                     <td>{{ $project->title }}</td>
                     <td>{{ $project->slug }}</td>
                     <td>{{ $project->type?->name }}</td>
