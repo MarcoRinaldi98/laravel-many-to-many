@@ -10,6 +10,10 @@
 
         @if ($project->image)
             <img class="mt-3 img-thumbnail" src="{{ asset('storage/' . $project->image) }}" alt="{{ $project->title }}" />
+        @else
+            <div class="w-50 bg-secondary py-4 text-center">
+                No image yet
+            </div>
         @endif
 
         <h1 class="text-center mt-2 text-primary">{{ $project->title }}</h1>

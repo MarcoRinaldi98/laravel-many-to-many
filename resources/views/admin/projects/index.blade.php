@@ -28,6 +28,10 @@
                         @if ($project->image)
                             <img class="img-thumbnail my-img-index" src="{{ asset('storage/' . $project->image) }}"
                                 alt="{{ $project->title }}" />
+                        @else
+                            <div class="w-50 bg-secondary py-4 text-center">
+                                No image yet
+                            </div>
                         @endif
                     </td>
                     <td>{{ $project->title }}</td>

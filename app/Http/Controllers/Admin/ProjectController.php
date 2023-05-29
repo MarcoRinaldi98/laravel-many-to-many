@@ -55,7 +55,7 @@ class ProjectController extends Controller
 
         if ($request->hasFile('image')) { // o (array_key_exists('image', $request->all()))
             $path = Storage::put('img', $request->image);
-            $validated_data['image'] = $path;
+            $form_data['image'] = $path;
         }
 
         $newProject = Project::create($form_data);
@@ -114,7 +114,7 @@ class ProjectController extends Controller
                 Storage::delete($project->image);
             }
             $path = Storage::put('img', $request->image);
-            $validated_data['image'] = $path;
+            $form_data['image'] = $path;
         }
 
         $project->technologies()->sync($request->technologies);
